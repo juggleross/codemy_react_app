@@ -4,9 +4,23 @@ import Contact from './Contact';
 import data from './data';
 
 class Layout extends React.Component {
+  componentWillMount() {
+    this.setState({
+      contacts: data
+    })
+  }
+
   addContact = (e) => {
+    const contacts = this.state.contacts;
+    const contactId = contacts[contacts.length - 1].id + 1;
+
     e.preventDefault();
-    alert('hello');
+
+    this.setState({
+      contacts: contacts.concat({id: contactId,
+                                 name: `contact ${contactId}`,
+                                 email: `${contactId}@gmail.com`})
+    })
   }
 
   render() {
@@ -14,7 +28,7 @@ class Layout extends React.Component {
       <div id='helloReact'>
         <a href="#" className='pure-button' onClick={this.addContact}>Add me</a>
         <div  className='pure-g'>
-          { data.map(info =>
+          { this.state.contacts.map(info =>
             <Contact key={info.id} {...info}/>
           )}
         </div>
