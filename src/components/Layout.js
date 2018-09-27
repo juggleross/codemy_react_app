@@ -18,19 +18,22 @@ class Layout extends React.Component {
 
     this.setState({
       contacts: contacts.concat({id: contactId,
-                                 name: `contact ${contactId}`,
-                                 email: `${contactId}@gmail.com`})
+                                 name: this.refs.name.value,
+                                 email: this.refs.email.value })
     })
+
+    this.refs.name.value = null;
+    this.refs.email.value = null;
   }
 
   contactForm = () =>
     <div className='pure-g'>
       <div className='pure-u-12-24'>
-        <form className="pure-form">
+        <form className="pure-form" onSubmit={this.addContact}>
           <fieldset>
             <legend>A compact inline form </legend>
-            <input type="email" placeholder="Email" />
-            <input type="text" placeholder="Name" />
+            <input ref='email' type="email" placeholder="Email" />
+            <input ref='name' type="text" placeholder="Name" />
 
             <button type="submit" className="pure-button pure-button-primary">Add</button>
           </fieldset>
