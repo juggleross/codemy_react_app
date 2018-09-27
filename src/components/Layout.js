@@ -23,9 +23,25 @@ class Layout extends React.Component {
     })
   }
 
+  contactForm = () =>
+    <div className='pure-g'>
+      <div className='pure-u-12-24'>
+        <form className="pure-form">
+          <fieldset>
+            <legend>A compact inline form </legend>
+            <input type="email" placeholder="Email" />
+            <input type="text" placeholder="Name" />
+
+            <button type="submit" className="pure-button pure-button-primary">Add</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
   render() {
     return(
       <div id='helloReact'>
+        { this.contactForm() }
         <a href="#" className='pure-button' onClick={this.addContact}>Add me</a>
         <div  className='pure-g'>
           { this.state.contacts.map(info =>
