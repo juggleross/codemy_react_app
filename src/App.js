@@ -2,13 +2,15 @@ import 'purecss/build/pure.css';
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Layout from './components/Layout'
+
+import { Router, browserHistory } from 'react-router';
+import routes from './routes';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Layout />
+        <Router routes={routes} history={browserHistory} />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
