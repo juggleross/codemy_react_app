@@ -1,26 +1,19 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import styles from './Collection.module.sass';
 import Contact from './Contact';
-import data from './data';
 
+@observer(['contacts'])
 class Collection extends React.Component {
-  componentWillMount() {
-    this.setState({
-      contacts: data
-    })
-  }
-
   addContact = (e) => {
-    const contacts = this.state.contacts;
+    const contacts = this.props.contacts.all.slice();
     const contactId = contacts[contacts.length - 1].id + 1;
 
     e.preventDefault();
 
-    this.setState({
-      contacts: contacts.concat({id: contactId,
-                                 name: this.refs.name.value,
-                                 email: this.refs.email.value })
-    })
+    this.props.contacts.add({id: contactId,
+                             name: this.refs.name.value,
+                             email: this.refs.email.value });
 
     this.refs.name.value = null;
     this.refs.email.value = null;
@@ -47,7 +40,7 @@ class Collection extends React.Component {
         { this.contactForm() }
         <a href="#" className='pure-button' onClick={this.addContact}>Add me</a>
         <div  className='pure-g'>
-          { this.state.contacts.map(info =>
+          { this.props.contacts.all.slice().map(info =>
             <Contact key={info.id} {...info}/>
           )}
         </div>
