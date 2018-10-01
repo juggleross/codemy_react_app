@@ -1,5 +1,5 @@
 import React from 'react';
-import './Collection.css';
+import styles from './Collection.module.sass';
 import Contact from './Contact';
 import data from './data';
 
@@ -43,7 +43,7 @@ class Collection extends React.Component {
 
   render() {
     return(
-      <div id='helloReact'>
+      <div id='helloReact' className={styles.main}>
         { this.contactForm() }
         <a href="#" className='pure-button' onClick={this.addContact}>Add me</a>
         <div  className='pure-g'>
