@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import Api from '../../lib/helpers/api/index';
 
 class Contacts {
   @observable all = [];
@@ -6,7 +7,7 @@ class Contacts {
 
   @action async fetchAll() {
     this.isLoading = false;
-    const response = await fetch('http://localhost:3001/v1/contacts');
+    const response = await Api.get('/contacts');
     const status = await response.status;
 
     if(status === 200) {
@@ -19,22 +20,22 @@ class Contacts {
     const existing = this.all;
     this.all = existing.concat(data);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    // const headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    //
+    // const options = {
+    //   method: 'POST',
+    //   headers,
+    //   body: JSON.stringify(data)
+    // };
 
-    const options = {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(data)
-    };
-
-    const request = new Request('http://localhost:3001/v1/contacts', options);
+    const request = Api.post('/contacts', data);
     const response = await fetch(request);
     const status = await response.status;
 
     if(status === 201) {
       const response_with_data = await response.json();
-      this.all = this.all.concat(response_with_data.data);    
+      this.all = this.all.concat(response_with_data.data);
     }
   }
 
