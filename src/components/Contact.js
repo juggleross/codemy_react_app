@@ -2,12 +2,15 @@ import React from 'react';
 
 import { Link } from 'react-router';
 
-import styles from './Contact.module.sass'
+import styles from './Contact.module.sass';
 
+import { observer } from 'mobx-react';
+
+@observer(['contacts'])
 class Contact extends React.Component {
   removeContact = (e) => {
     e.preventDefault();
-    alert('remove');
+    this.props.contacts.remove(this.props.id);
   }
 
   render() {

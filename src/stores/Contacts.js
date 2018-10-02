@@ -17,6 +17,11 @@ class Contacts {
       this.all.slice().filter(elem => elem.id === parseInt(contactId))[0]
     );
   }
+
+  @action remove(contactId) {
+    const existing = this.all;
+    this.all = existing.filter(elem => elem.id !== parseInt(contactId));
+  }
 }
 
 export default new Contacts();
