@@ -5,17 +5,19 @@ import Contact from './Contact';
 
 @observer(['contacts'])
 class Collection extends React.Component {
+  componentWillMount() {
+    this.props.contacts.fetchAll();
+  }
+
   addContact = (e) => {
-    const contacts = this.props.contacts.all.slice();
-    const contactId = contacts[contacts.length - 1].id + 1;
-
     e.preventDefault();
+    
+    this.props.contacts.add({ first_name: this.refs.first_name.value,
+                              last_name: this.refs.last_name.value,
+                              email: this.refs.email.value });
 
-    this.props.contacts.add({id: contactId,
-                             name: this.refs.name.value,
-                             email: this.refs.email.value });
-
-    this.refs.name.value = null;
+    this.refs.first_name.value = null;
+    this.refs.last_name.value = null;
     this.refs.email.value = null;
   }
 
@@ -26,7 +28,9 @@ class Collection extends React.Component {
           <fieldset>
             <legend>A compact inline form </legend>
             <input ref='email' type="email" placeholder="Email" />
-            <input ref='name' type="text" placeholder="Name" />
+            <input ref='first_name' type="text" placeholder="First Name" />
+            <input ref='last_name' type="text" placeholder="Last Name" />
+
 
             <button type="submit" className="pure-button pure-button-primary">Add</button>
           </fieldset>
@@ -39,7 +43,7 @@ class Collection extends React.Component {
       <div id='helloReact' className={styles.main}>
         { this.contactForm() }
         <a href="#" className='pure-button' onClick={this.addContact}>Add me</a>
-        <div  className='pure-g'>
+        <div className='pure-g'>
           { this.props.contacts.all.slice().map(info =>
             <Contact key={info.id} {...info}/>
           )}
