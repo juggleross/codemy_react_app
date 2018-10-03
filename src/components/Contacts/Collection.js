@@ -11,7 +11,7 @@ class Collection extends React.Component {
 
   addContact = (e) => {
     e.preventDefault();
-    
+
     this.props.contacts.add({ first_name: this.refs.first_name.value,
                               last_name: this.refs.last_name.value,
                               email: this.refs.email.value });

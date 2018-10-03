@@ -1,7 +1,6 @@
 import React from 'react';
 import Contact from './Contact';
 import { observer } from 'mobx-react';
-// import data from './data'
 
 @observer(['contacts'])
 class Show extends React.Component {
