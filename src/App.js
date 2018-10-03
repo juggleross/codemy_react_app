@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Provider contacts={stores.contacts}>
+        <Provider {...stores}>
           <Router routes={routes} history={browserHistory} />
         </Provider>
 
