@@ -1,4 +1,4 @@
-import Layout from './Layout';
+import Layout from './Layout/Layout';
 import Contacts from './Contacts/index';
 import Sessions from './Sessions/index';
 

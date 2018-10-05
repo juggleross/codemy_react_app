@@ -5,9 +5,18 @@ import Api from '../../lib/helpers/api/index';
 class User {
 
   @observable isLoading = false;
+  @observable signedIn = false;
+  @observable email = null;
 
   @action setIsLoading(status) {
     this.isLoading = status;
+  }
+
+  @action setSignedIn(status, email) {
+    this.signedIn = status;
+    if(status && email) {
+      this.email = email;
+    }
   }
 
   async createSession(email, password) {
@@ -25,6 +34,7 @@ class User {
       localStorage.setItem('email', user.email);
 
       this.setIsLoading(false);
+      this.setSignedIn(true, user.email);
 
       browserHistory.push('/');
     } else {
